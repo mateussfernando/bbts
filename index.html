@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Busca Inteligente - BBTS Start</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/reset.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- <link rel="stylesheet" href="/styles/footer.css" /> -->
+  </head>
+  <body>
+    <header>
+      <img src="/imagens/logo-bbts.png" />
+      <nav>
+        <a href="#">Início</a>
+        <a href="#">Cadastrar</a>
+        <a href="#">Contato</a>
+        <a href="#">Perguntas frequentes</a>
+        <button>Acessar</button>
+      </nav>
+    </header>
+    <main>
+      <h1>Busca Inteligente</h1>
+      <input
+        id="searchInput"
+        class="search-input"
+        type="text"
+        placeholder="Busque por nome da empresa, área de atuação, tecnologias utlizadas, palavra-chave"
+      />
+      <aside>
+        <div class="filtros-avancados">
+          <h3>Filtros avançados:</h3>
+          <strong>Segmento</strong>
+          <label><input type="checkbox" value="tecnologia" /> Tecnologia</label>
+          <label><input type="checkbox" value="saude" /> Saúde</label>
+          <label><input type="checkbox" value="finanças" /> Finanças</label>
+          <label
+            ><input type="checkbox" value="sustentabilidade" />
+            Sustentabilidade</label
+          >
+          <label><input type="checkbox" value="educação" /> Educação</label>
+        </div>
+        <div class="categorias">
+          <button>CATEGORIAS DE ATUAÇÃO <span class="plus">+</span></button>
+          <button>PORTE DA EMPRESA <span class="plus">+</span></button>
+          <button>MODELO DE NEGÓCIO <span class="plus">+</span></button>
+        </div>
+        <div class="botao-filtro">
+          <button>APLICAR FILTROS</button>
+          <button>LIMPAR FILTROS</button>
+        </div>
+      </aside>
+      <div>
+        <div id="cards" class="cards"></div>
+        <div id="cards" class="cards"></div>
+      </div>
+    </main>
+    <footer>
+      <div>
+        <img
+          src="/imagens/logo-bb-tecnologia-servicos.png"
+          class="logo-bb-tecnologia-servicos"
+        />
+        <div>
+          <h5>Links Úteis</h5>
+          <a href="#">Cadastrar</a>
+          <a href="#">Contato</a>
+        </div>
+        <div>
+          <h5>Suporte</h5>
+          <a href="#">Central de Ajuda</a>
+          <a href="#">Perguntas Frequentes</a>
+          <a href="#">Políticas de Privacidade</a>
+        </div>
+        <div>
+          <h5>Contato</h5>
+          <span>contato@brtecnologia.com.br</span>
+        </div>
+        <div>
+          <h5>Redes Sociais</h5>
+          <span>contato@brtecnologia.com.br</span>
+        </div>
+        <div>
+          <h5>Redes Sociais</h5>
+          <div>
+            <img src="/imagens/icone-facebook.png" />
+            <img src="/imagens/icone-instagram.png" />
+            <img src="/imagens/icone-linkedin.png" />
+          </div>
+        </div>
+      </div>
+
+      <span>© 2024 BB Tecnologia Serviços. Todos os direitos reservados.</span>
+    </footer>
+  </body>
+</html>

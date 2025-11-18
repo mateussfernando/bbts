@@ -1,0 +1,220 @@
+/* Fonte base + layout de página */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Poppins';
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header: logo à esquerda, nav à direita */
+header {
+  width: 100%;
+  height: 100px;
+  background: #465eff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* Logo */
+header > img {
+  height: 60px;
+  width: auto;
+}
+
+/* Navegação */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav button {
+  background: #fcfc30;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+main {
+  flex: 1;
+  /* centraliza conteúdo horizontalmente e verticalmente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+main > h1 {
+  color: #465eff;
+  font-size: 48px;
+  font-family: Poppins;
+  font-weight: 600;
+  width: 100%;
+  max-width: 1113px;
+  text-align: left;
+  margin: 0;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 1113px;
+  height: 70px;
+  padding: 0 48px 0 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-image: url('/imagens/icone-pesquisa.png');
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 30px;
+}
+
+.search-input::placeholder {
+  color: #bfbfbf;
+  font-size: 18px;
+  font-family: Poppins, Arial, sans-serif;
+  font-weight: 300;
+}
+
+.icone-pesquisa {
+  width: 30px;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  width: 317px;
+  height: auto;
+  margin-top: 61px;
+}
+
+aside h3 {
+  color: #465eff;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.filtros-avancados {
+  display: flex;
+  flex-direction: column;
+}
+
+.filtros-avancados h3 {
+  margin: 0 0 8px 0;
+}
+
+.filtros-avancados strong {
+  display: block;
+  text-transform: uppercase;
+  color: #000000;
+  font-size: 12px;
+  margin: 10px 0 6px 0;
+  letter-spacing: 0.6px;
+}
+
+.filtros-avancados label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  color: #333333;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filtros-avancados input[type='checkbox'] {
+  /* visual simples mas moderno — usa accent-color para o check */
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #465eff;
+}
+
+/* Seção de botões de categoria representada como linhas expansíveis */
+.categorias {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.categorias button {
+  background: transparent;
+  border: none;
+  padding: 14px 6px;
+  text-align: left;
+  font-weight: 600;
+  color: #333333;
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-family: 'Poppins';
+}
+
+.categorias .plus {
+  color: #999999;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.botao-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.botao-filtro button {
+  background: #ffffff;
+  color: #465eff;
+  border: 2px solid #465eff;
+  padding: 10px 18px;
+  border-radius: 28px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins';
+  font-size: 20px;
+  width: 254px;
+  height: 44px;
+}
+
+/* Garantir que botões usem Poppins (resolve placeholders/labels dos botões) */
+button {
+  font-family: 'Poppins';
+}
+
+.botao-filtro button:nth-child(2) {
+  background: transparent;
+  color: #465eff;
+}
+
+footer {
+  background: #465eff;
+  width: 100%;
+  height: 380px;
+  color: #fff;
+}
+.logo-bb-tecnologia-servicos {
+  height: 35.5px;
+}
