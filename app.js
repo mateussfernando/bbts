@@ -15,7 +15,7 @@ const startups = [
       'Saúde Digital Aplicativo de telemedicina que conecta pacientes a médicos especialistas, com suporte a prontuário eletrônico.',
     tecnologias: ['Cloud', 'Machine Learning'],
     segmento: 'saúde',
-    imagem: '/imagens/abconnect.png',
+    imagem: '/imagens/abconnect1.png',
     link: '#',
   },
 ];
