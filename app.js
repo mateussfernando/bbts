@@ -4,10 +4,9 @@ const startups = [
     nome: 'XYZ Solutions',
     descricao:
       'XYZ Solutions Plataforma que utiliza IoT e IA para monitorar consumo energético e reduzir custos em pequenas e médias empresas.',
-    tecnologias: ['IoT', 'IA'],
+    tecnologias: ['IoT', 'IA', 'Cloud Computing'],
     segmento: 'tecnologia',
     imagem: '/imagens/xyz.png',
-    link: 'startup.html',
   },
   {
     nome: 'ABConnect',
@@ -16,7 +15,6 @@ const startups = [
     tecnologias: ['Cloud', 'Machine Learning'],
     segmento: 'saúde',
     imagem: '/imagens/abconnect1.png',
-    link: '#',
   },
 ];
 
@@ -29,33 +27,27 @@ function render(lista) {
   area.innerHTML = '';
   lista.forEach((s) => {
     area.innerHTML += `
-      <div style="width:634px;min-height:316px;background:#fff;border-radius:20px;border:1px solid #BFBFBF;margin-bottom:32px;padding:28px;box-sizing:border-box;display:flex;flex-direction:column;">
-        <div style="display:flex;align-items:center;gap:28px;">
-          <img style="width:200px;height:200px;border-radius:16px;object-fit:cover;" src="${
-            s.imagem
-          }" />
-          <div style="width:348px;display:flex;flex-direction:column;gap:8px;">
-            <div style="color:#465EFF;font-size:24px;font-weight:600;">${
-              s.nome
-            }</div>
-            <div style="color:#535353;font-size:18px;">${
+      <div class="card-resultado">
+        <div class="card-resultado-topo">
+          <img class="card-resultado-img" src="${s.imagem}" />
+          <div class="card-resultado-info">
+            <div class="card-resultado-nome">${s.nome}</div>
+            <div class="card-resultado-segmento">${
               s.segmento.charAt(0).toUpperCase() + s.segmento.slice(1)
             }</div>
-            <div style="color:#535353;font-size:18px;">${s.descricao}</div>
-            <div style="display:flex;gap:13px;">
+            <div class="card-resultado-descricao">${s.descricao}</div>
+            <div class="card-resultado-tecnologias">
               ${s.tecnologias
-                .map(
-                  (t) => `
-                <div style="min-width:68px;height:35px;padding:3px 19px;background:#FEFEFE;border-radius:10px;outline:1px solid #535353;display:flex;align-items:center;justify-content:center;color:#535353;font-size:16px;font-weight:500;">${t}</div>
-              `
-                )
+                .map((t) => `<div class="card-resultado-tec">${t}</div>`)
                 .join('')}
             </div>
           </div>
         </div>
-        <div style="width:100%;height:27px;text-align:right;display:flex;align-items:center;justify-content:flex-end;color:#535353;font-size:14px;font-weight:500;text-decoration:underline;cursor:pointer;"> <a href="${
-          s.link
-        }" style="color:inherit;text-decoration:inherit;">Saber mais</a></div>
+        <div class="card-resultado-link">
+          <a href="detalhamento.html?nome=${encodeURIComponent(
+            s.nome
+          )}">Saber mais</a>
+        </div>
       </div>
     `;
   });
