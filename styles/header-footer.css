@@ -282,3 +282,30 @@
     display: none;
   }
 }
+
+/* VLibras (gov.br) - posicionar botão à direita e adaptar para mobile */
+.vw-access-button,
+.vw-plugin-wrapper {
+  right: 18px !important;
+  bottom: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  left: auto !important;
+  z-index: 9999 !important;
+}
+
+/* wrapper adicional (plugin) */
+.vw-plugin-wrapper {
+  right: 18px !important;
+  top: 50% !important;
+}
+
+@media (max-width: 768px) {
+  .vw-access-button,
+  .vw-plugin-wrapper {
+    top: auto !important;
+    bottom: 18px !important;
+    transform: none !important;
+    right: 14px !important;
+  }
+}
