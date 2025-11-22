@@ -229,6 +229,256 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// --- Painel de Acessibilidade (criado dinamicamente) ---
+(function createAccessPanel() {
+  // wrapper fixo (preenche a viewport) com painel posicionado absolute dentro
+  if (document.getElementById('access-panel-wrapper')) return;
+
+  const wrapper = document.createElement('div');
+  wrapper.id = 'access-panel-wrapper';
+  wrapper.style.position = 'fixed';
+  wrapper.style.inset = '0';
+  wrapper.style.pointerEvents = 'none';
+  wrapper.style.zIndex = '9999';
+  wrapper.style.display = 'none';
+
+  const panel = document.createElement('div');
+  panel.id = 'access-panel';
+  // o painel em si usa position absolute (relativo ao wrapper fixo)
+  panel.style.position = 'absolute';
+  panel.style.right = '0';
+  panel.style.top = '80px';
+  panel.style.width = '324px';
+  panel.style.height = '620px';
+  panel.style.background = 'white';
+  panel.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.25)';
+  panel.style.overflow = 'hidden';
+  panel.style.borderTopLeftRadius = '30px';
+  panel.style.borderBottomLeftRadius = '30px';
+  panel.style.pointerEvents = 'auto';
+  panel.style.padding = '0';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', 'Ferramentas de acessibilidade');
+
+  // conteúdo (adaptado da base fornecida) com ícones aplicados diretamente
+  panel.innerHTML = `
+    <div style="position:relative;width:100%;height:100%;font-family:Poppins, Arial, sans-serif;color:black">
+      <div style="left:88px;top:27px;position:absolute;font-size:24px;font-weight:600;">Ferramentas de <br/>Acessibilidade</div>
+
+      <div style="position:absolute;left:36px;top:120px;display:flex;flex-direction:column;gap:18px;width:252px">
+        <button data-action="increase" style="display:flex;align-items:center;gap:14px;padding:8px;border:0;background:transparent;cursor:pointer;font-size:20px;text-align:left"> 
+          <img class="access-icon" src="/imagens/acessibilidade/icone-aumentar-texto.png" alt="aumentar" />
+          <span>Aumentar texto</span>
+        </button>
+
+        <button data-action="decrease" style="display:flex;align-items:center;gap:14px;padding:8px;border:0;background:transparent;cursor:pointer;font-size:20px;text-align:left"> 
+          <img class="access-icon" src="imagens/acessibilidade/icone-diminuir-texto.png" alt="diminuir" />
+          <span>Diminuir texto</span>
+        </button>
+
+        <button data-action="grayscale" style="display:flex;align-items:center;gap:14px;padding:8px;border:0;background:transparent;cursor:pointer;font-size:20px;text-align:left"> 
+          <img class="access-icon" src="imagens/acessibilidade/icone-escala-cinza.png" alt="escala-cinza" />
+          <span>Escala de cinza</span>
+        </button>
+
+        <button data-action="contrast" style="display:flex;align-items:center;gap:14px;padding:8px;border:0;background:transparent;cursor:pointer;font-size:20px;text-align:left"> 
+          <img class="access-icon" src="imagens/acessibilidade/icone-contraste-negativo.png" alt="alto-contraste" />
+          <span>Alto contraste</span>
+        </button>
+
+        <button data-action="invert" style="display:flex;align-items:center;gap:14px;padding:8px;border:0;background:transparent;cursor:pointer;font-size:20px;text-align:left"> 
+          <img class="access-icon" src="imagens/acessibilidade/icone-contraste-negativo.png" alt="contraste-negativo" />
+          <span>Contraste negativo</span>
+        </button>
+
+        <button data-action="fundo-claro" style="display:flex;align-items:center;gap:14px;padding:8px;border:0;background:transparent;cursor:pointer;font-size:20px;text-align:left"> 
+          <img class="access-icon" src="imagens/acessibilidade/icone-fundo-claro.png" alt="fundo-claro" />
+          <span>Fundo claro</span>
+        </button>
+
+        <button data-action="reset" style="display:flex;align-items:center;gap:14px;padding:8px;border:0;background:transparent;cursor:pointer;font-size:20px;text-align:left"> 
+          <img class="access-icon" src="imagens/acessibilidade/icone-redefefinir.png" alt="redefinir" />
+          <span>Redefinir</span>
+        </button>
+      </div>
+
+      <button id="access-panel-close" aria-label="Fechar painel" style="position:absolute;right:12px;top:12px;border:0;background:transparent;cursor:pointer;font-size:18px">✕</button>
+    </div>
+  `;
+
+  wrapper.appendChild(panel);
+  document.body.appendChild(wrapper);
+
+  // aplicar imagens de ícone a partir da pasta imagens/acessibilidade
+  (function applyIconImages() {
+    const mapping = {
+      increase: 'icone-aumentar-texto',
+      decrease: 'icone-diminuir-texto',
+      grayscale: 'icone-escala-cinza',
+      contrast: 'icone-contraste-negativo',
+      invert: 'icone-contraste-negativo',
+      'fundo-claro': 'icone-fundo-claro',
+      reset: 'icone-redefefinir',
+    };
+
+    const buttons = panel.querySelectorAll('[data-action]');
+    buttons.forEach((btn) => {
+      const action = btn.getAttribute('data-action');
+      const name = mapping[action] || action;
+      const img = btn.querySelector('.access-icon');
+
+      // NÃO criar placeholders — apenas ajustar imagens já presentes
+      if (!img) return;
+
+      // se já possui src, preservamos
+      if (img.getAttribute('src')) return;
+
+      // se existe <img> mas sem src, tentamos png -> svg
+      img.alt = action;
+      img.src = `imagens/acessibilidade/${name}.png`;
+      img.addEventListener(
+        'error',
+        function onFirstError() {
+          img.removeEventListener('error', onFirstError);
+          img.src = `imagens/acessibilidade/${name}.svg`;
+        },
+        { once: true }
+      );
+    });
+  })();
+
+  // styles para classes de acessibilidade (injetadas uma vez)
+  if (!document.getElementById('access-panel-styles')) {
+    const style = document.createElement('style');
+    style.id = 'access-panel-styles';
+    style.innerHTML = `
+      .access-high-contrast { background: #000 !important; color: #fff !important }
+      .access-invert { filter: invert(100%) hue-rotate(180deg) !important }
+      .access-grayscale { filter: grayscale(100%) !important }
+      .access-readable-bg { background: #fff !important; color: #000 !important }
+      /* ícones placeholders padronizados (suporta <img> e elementos de bloco) */
+      #access-panel .access-icon { width:30px; height:30px; display:block; object-fit:contain; border-radius:6px; flex:0 0 30px }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // estado da fonte via zoom (simples e compatível)
+  let fontScale = 1;
+
+  function openPanel() {
+    wrapper.style.display = 'block';
+    wrapper.style.pointerEvents = 'auto';
+    // pequena animação
+    panel.style.transform = 'translateX(8px)';
+    panel.style.transition = 'transform 160ms ease-out';
+    setTimeout(() => (panel.style.transform = 'translateX(0)'), 10);
+    panel.querySelector('[data-action]')?.focus();
+  }
+
+  function closePanel() {
+    panel.style.transform = 'translateX(8px)';
+    setTimeout(() => {
+      wrapper.style.display = 'none';
+      wrapper.style.pointerEvents = 'none';
+    }, 160);
+  }
+
+  // ações
+  function increaseText() {
+    fontScale = +(fontScale * 1.1).toFixed(2);
+    document.body.style.zoom = String(fontScale);
+  }
+  function decreaseText() {
+    fontScale = +(fontScale / 1.1).toFixed(2);
+    if (fontScale < 0.5) fontScale = 0.5;
+    document.body.style.zoom = String(fontScale);
+  }
+  function toggleClass(cls) {
+    document.body.classList.toggle(cls);
+  }
+  function resetAccess() {
+    fontScale = 1;
+    document.body.style.zoom = '';
+    document.body.classList.remove(
+      'access-high-contrast',
+      'access-invert',
+      'access-grayscale',
+      'access-readable-bg'
+    );
+  }
+
+  // delegação de eventos
+  panel.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const action = btn.getAttribute('data-action');
+    switch (action) {
+      case 'increase':
+        increaseText();
+        break;
+      case 'decrease':
+        decreaseText();
+        break;
+      case 'grayscale':
+        toggleClass('access-grayscale');
+        break;
+      case 'contrast':
+        toggleClass('access-high-contrast');
+        break;
+      case 'invert':
+        toggleClass('access-invert');
+        break;
+      case 'readable':
+      case 'fundo-claro':
+        toggleClass('access-readable-bg');
+        break;
+      case 'reset':
+        resetAccess();
+        break;
+    }
+  });
+
+  // abrir/fechar via botão existente `.btn-acess`
+  const trigger = document.querySelector('.btn-acess');
+  if (trigger) {
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (wrapper.style.display === 'block') {
+        closePanel();
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        openPanel();
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
+
+  // fechar ao clicar fora do painel
+  wrapper.addEventListener('click', (e) => {
+    if (e.target === wrapper) {
+      closePanel();
+      trigger?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // botão fechar
+  wrapper
+    .querySelector('#access-panel-close')
+    ?.addEventListener('click', () => {
+      closePanel();
+      trigger?.setAttribute('aria-expanded', 'false');
+    });
+
+  // fechar com ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && wrapper.style.display === 'block') {
+      closePanel();
+      trigger?.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
 // Render function
 function render(lista) {
   const area = document.getElementById('resultados');
