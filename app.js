@@ -85,6 +85,57 @@ document.addEventListener('DOMContentLoaded', () => {
       speechSynthesis.speak(speech);
     };
   }
+
+  // Proxy do botão VLibras: quando o botão customizado for clicado,
+  // acionamos o botão do plugin (elemento com atributo `vw-access-button`).
+  const btnVlibrasCustom = document.querySelector('.btn-vlibras');
+  function attemptClickVlibras() {
+    const vlBtn = document.querySelector('[vw-access-button]');
+    if (vlBtn) {
+      try {
+        vlBtn.click();
+        return true;
+      } catch (e) {
+        console.warn('Erro ao clicar no botão VLibras', e);
+      }
+    }
+    return false;
+  }
+  if (btnVlibrasCustom) {
+    function handleCustomVlibrasActivation(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      console.debug('Custom VLibras button activated', {
+        page: location.pathname,
+      });
+      // tenta imediatamente; se não existir ainda, faz retries
+      if (!attemptClickVlibras()) {
+        let retries = 0;
+        const maxRetries = 50; // ~10s com intervalo 200ms
+        const interval = setInterval(() => {
+          const found = attemptClickVlibras();
+          retries++;
+          console.debug('VLibras retry', { retries, found });
+          if (found || retries >= maxRetries) {
+            clearInterval(interval);
+            if (!found) {
+              console.warn(
+                'Botão VLibras não encontrado após várias tentativas.'
+              );
+            }
+          }
+        }, 200);
+      }
+    }
+
+    btnVlibrasCustom.addEventListener('click', handleCustomVlibrasActivation);
+    // Accessibility: activate with Enter or Space when focused
+    btnVlibrasCustom.setAttribute('tabindex', '0');
+    btnVlibrasCustom.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        handleCustomVlibrasActivation(e);
+      }
+    });
+  }
 });
 
 // Render function

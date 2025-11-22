@@ -9,10 +9,32 @@
     />
     <link rel="stylesheet" href="/styles/header-footer.css" />
     <link rel="stylesheet" href="/styles/main-pesquisa.css" />
+    <style>
+      /* Esconder o botão nativo do VLibras — usamos apenas o botão customizado */
+      [vw-access-button] {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+      }
+    </style>
 
     <title>Header e Footer - BBTS</title>
   </head>
   <body style="margin: 0; font-family: Poppins, Arial, sans-serif">
+    <div id="botoes-acessibilidade-extra">
+      <button class="btn-acess">
+        <img src="/imagens/icone-pessoa.png" alt="Acessibilidade" />
+      </button>
+      <button class="btn-vlibras">
+        <img src="/imagens/libras.png" alt="VLibras" />
+      </button>
+      <button class="btn-audio">
+        <img src="/imagens/icone-comando-voz.png" alt="Comando de voz" />
+      </button>
+    </div>
+
     <header class="site-header">
       <img src="/imagens/logo-bbts.png" alt="Logo BBTS" />
       <button class="hamburger" aria-label="Abrir menu" aria-expanded="false">
